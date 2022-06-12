@@ -3,7 +3,7 @@ cls
 set b=0
 set apploc=%cd%
 set appname=mootrix-cleaner
-set appvers=1.0.0
+set appvers=1.0.1
 set appstat=Alpha
 set dev=mootrix@gmail.com
 set desc=A maintenance tool that can automatically or manually clean up your Windows machine.
@@ -962,9 +962,13 @@ echo #
 echo # Starting SystemFile Checker..
 echo # %divider%
 ping localhost -n 2 >NUL
-sfc /scannow
+DISM /Online /Cleanup-Image /CheckHealth
+ping localhost -n 2 >NUL
+DISM /Online /Cleanup-Image /ScanHealth
 ping localhost -n 2 >NUL
 DISM /Online /Cleanup-Image /RestoreHealth
+ping localhost -n 2 >NUL
+sfc /scannow
 timeout /t 3 /nobreak> null
 goto ahistoryCleaner
 
